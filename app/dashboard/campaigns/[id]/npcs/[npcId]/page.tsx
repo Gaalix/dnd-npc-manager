@@ -86,7 +86,7 @@ export default function NPCDetailPage({ params }: NPCDetailPageProps) {
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border bg-background/70 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              <ScrollText className="h-3.5 w-3.5 text-primary" />
+              <ScrollText aria-hidden="true" className="h-3.5 w-3.5 text-primary" />
               NPC Reference
             </div>
             <h1 className="mt-2 text-3xl font-serif font-bold">{npc.name}</h1>
@@ -97,7 +97,7 @@ export default function NPCDetailPage({ params }: NPCDetailPageProps) {
                     key={tag}
                     className="inline-flex items-center gap-1 rounded-full border border-border/60 bg-background/80 px-2 py-0.5"
                   >
-                    <Sparkles className="h-3 w-3 text-primary" />
+                    <Sparkles aria-hidden="true" className="h-3 w-3 text-primary" />
                     {tag}
                   </span>
                 ))
@@ -108,7 +108,7 @@ export default function NPCDetailPage({ params }: NPCDetailPageProps) {
               )}
               {npc.location && (
                 <span className="inline-flex items-center gap-1 rounded-full border border-border/60 bg-background/80 px-2 py-0.5">
-                  <MapPin className="h-3 w-3 text-primary" />
+                  <MapPin aria-hidden="true" className="h-3 w-3 text-primary" />
                   {npc.location}
                 </span>
               )}

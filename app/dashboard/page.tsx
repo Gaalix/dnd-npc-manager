@@ -29,7 +29,7 @@ export default async function DashboardPage() {
 
   const lastUpdatedCampaign = campaigns?.[0];
   const formatDate = (value?: string) => {
-    if (!value) return "No updates yet";
+    if (!value) return "No campaigns";
     return new Intl.DateTimeFormat("en-US", {
       month: "short",
       day: "numeric",
@@ -42,7 +42,7 @@ export default async function DashboardPage() {
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2 rounded-full border bg-background/70 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-            <ScrollText className="h-3.5 w-3.5 text-primary" />
+            <ScrollText aria-hidden="true" className="h-3.5 w-3.5 text-primary" />
             Campaign Command Center
           </div>
           <h1 className="text-3xl font-serif font-bold tracking-tight text-foreground">Campaigns</h1>
@@ -84,7 +84,7 @@ export default async function DashboardPage() {
               <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                 {item.label}
               </p>
-              <item.icon className="h-4 w-4 text-primary" />
+              <item.icon aria-hidden="true" className="h-4 w-4 text-primary" />
             </div>
             <div className="mt-3 text-2xl font-semibold text-foreground">
               {item.value}
@@ -106,7 +106,7 @@ export default async function DashboardPage() {
       ) : (
         <div className="flex flex-col items-center justify-center gap-2 py-16 text-center border-2 border-dashed border-muted rounded-2xl bg-muted/20">
           <div className="bg-background p-3 rounded-full mb-1 shadow-sm">
-            <BookOpen className="h-6 w-6 text-muted-foreground" />
+            <BookOpen aria-hidden="true" className="h-6 w-6 text-muted-foreground" />
           </div>
           <h3 className="text-lg font-serif font-semibold">No campaigns yet</h3>
           <p className="text-sm text-muted-foreground max-w-sm">
