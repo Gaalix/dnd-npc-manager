@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "@/components/theme-toggle";
 import { useSidebar } from "./sidebar-context";
+import { CampaignForm } from "@/components/campaigns/campaign-form";
 import {
   Scroll,
   BookOpen,
@@ -211,8 +212,8 @@ export function Sidebar({ campaigns }: SidebarProps) {
     router.refresh();
   };
 
-  const filteredCampaigns = campaigns.filter(c => 
-    c.name.toLowerCase().includes(filter.toLowerCase()) || 
+  const filteredCampaigns = campaigns.filter(c =>
+    c.name.toLowerCase().includes(filter.toLowerCase()) ||
     c.npcs.some(n => n.name.toLowerCase().includes(filter.toLowerCase()))
   );
 
@@ -233,16 +234,24 @@ export function Sidebar({ campaigns }: SidebarProps) {
 
       {/* Search (only when expanded) */}
       {expanded && (
-        <div className="p-4 pb-2">
+        <div className="p-4 pb-2 space-y-3">
           <div className="relative">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input 
-              placeholder="Search..." 
-              className="pl-9 bg-background/50 h-9 text-sm" 
+            <Input
+              placeholder="Search campaigns or NPCs"
+              className="pl-9 bg-background/70 h-9 text-sm"
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
             />
           </div>
+          <CampaignForm
+            trigger={
+              <Button className="w-full" size="sm">
+                <Plus className="h-4 w-4 mr-2" />
+                New Campaign
+              </Button>
+            }
+          />
         </div>
       )}
 
@@ -250,11 +259,11 @@ export function Sidebar({ campaigns }: SidebarProps) {
       <div className="flex-1 overflow-y-auto py-4 px-3 space-y-4 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
         {/* Main Nav */}
         <div className={cn("space-y-1", !expanded && "items-center flex flex-col")}>
-           <SidebarItem 
-              icon={BookOpen} 
-              label="All Campaigns" 
-              href="/dashboard" 
-              active={pathname === "/dashboard"} 
+           <SidebarItem
+              icon={BookOpen}
+              label="All Campaigns"
+              href="/dashboard"
+              active={pathname === "/dashboard"}
               collapsed={!expanded}
             />
         </div>

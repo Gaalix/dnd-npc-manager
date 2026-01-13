@@ -83,7 +83,7 @@ export function CampaignForm({ campaign, trigger }: CampaignFormProps) {
       <DialogTrigger asChild>
         {trigger || <Button>New Campaign</Button>}
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="border-border/60 bg-background/95 backdrop-blur">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>

@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
+import { Scroll } from "lucide-react";
 
 interface AuthFormProps {
   mode: "login" | "signup";
@@ -63,15 +64,18 @@ export function AuthForm({ mode }: AuthFormProps) {
   };
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader className="space-y-1">
+    <Card className="w-full max-w-md border-muted-foreground/20 bg-card/80 shadow-lg backdrop-blur">
+      <CardHeader className="space-y-2 text-center">
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+          <Scroll className="h-6 w-6" />
+        </div>
         <CardTitle className="text-2xl font-bold">
-          {mode === "login" ? "Welcome back" : "Create an account"}
+          {mode === "login" ? "Welcome back" : "Create your Folio"}
         </CardTitle>
         <CardDescription>
           {mode === "login"
-            ? "Enter your credentials to access your campaigns"
-            : "Enter your email to create your account"}
+            ? "Sign in to manage campaigns, sessions, and NPC details."
+            : "Create an account to start organizing your campaign prep."}
         </CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
