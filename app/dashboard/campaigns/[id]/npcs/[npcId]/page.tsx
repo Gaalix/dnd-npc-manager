@@ -86,7 +86,7 @@ export default function NPCDetailPage({ params }: NPCDetailPageProps) {
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border bg-background/70 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              <ScrollText className="h-3.5 w-3.5 text-primary" />
+              <ScrollText aria-hidden="true" className="h-3.5 w-3.5 text-primary" />
               NPC Reference
             </div>
             <h1 className="mt-2 text-3xl font-serif font-bold">{npc.name}</h1>

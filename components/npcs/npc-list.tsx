@@ -62,7 +62,7 @@ export function NPCList({ npcs, campaignId }: NPCListProps) {
       <div className="text-center py-12 rounded-2xl border border-dashed bg-muted/20">
         <div className="flex flex-col items-center gap-2">
           <div className="rounded-full bg-background p-3 shadow-sm">
-            <MapPin className="h-5 w-5 text-muted-foreground" />
+            <MapPin aria-hidden="true" className="h-5 w-5 text-muted-foreground" />
           </div>
           <h3 className="text-lg font-medium">No NPCs yet</h3>
           <p className="text-sm text-muted-foreground max-w-sm">

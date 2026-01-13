@@ -12,7 +12,7 @@ export default function Home() {
       <div className="relative z-10 flex flex-col items-center justify-center px-4 py-16 sm:py-24">
         <div className="max-w-4xl text-center space-y-8">
           <div className="inline-flex items-center gap-2 rounded-full border bg-background/70 px-4 py-1 text-sm text-muted-foreground shadow-sm backdrop-blur">
-            <Sparkles className="h-4 w-4 text-primary" />
+            <Sparkles aria-hidden="true" className="h-4 w-4 text-primary" />
             Built for dungeon masters who prep fast.
           </div>
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
