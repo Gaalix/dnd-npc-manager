@@ -97,7 +97,7 @@ export default function NPCDetailPage({ params }: NPCDetailPageProps) {
                     key={tag}
                     className="inline-flex items-center gap-1 rounded-full border border-border/60 bg-background/80 px-2 py-0.5"
                   >
-                    <Sparkles className="h-3 w-3 text-primary" />
+                    <Sparkles aria-hidden="true" className="h-3 w-3 text-primary" />
                     {tag}
                   </span>
                 ))
@@ -108,7 +108,7 @@ export default function NPCDetailPage({ params }: NPCDetailPageProps) {
               )}
               {npc.location && (
                 <span className="inline-flex items-center gap-1 rounded-full border border-border/60 bg-background/80 px-2 py-0.5">
-                  <MapPin className="h-3 w-3 text-primary" />
+                  <MapPin aria-hidden="true" className="h-3 w-3 text-primary" />
                   {npc.location}
                 </span>
               )}

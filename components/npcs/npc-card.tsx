@@ -76,7 +76,7 @@ export function NPCCard({ npc, campaignId }: NPCCardProps) {
                   key={chip.label}
                   className="inline-flex items-center gap-1 rounded-full border border-border/60 bg-background/80 px-2 py-0.5 text-xs text-muted-foreground"
                 >
-                  <chip.icon className="h-3 w-3 text-primary" />
+                  <chip.icon aria-hidden="true" className="h-3 w-3 text-primary" />
                   {chip.label}
                 </span>
               ))}

@@ -84,7 +84,7 @@ export default async function DashboardPage() {
               <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                 {item.label}
               </p>
-              <item.icon className="h-4 w-4 text-primary" />
+              <item.icon aria-hidden="true" className="h-4 w-4 text-primary" />
             </div>
             <div className="mt-3 text-2xl font-semibold text-foreground">
               {item.value}

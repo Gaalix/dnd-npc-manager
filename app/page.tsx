@@ -5,7 +5,7 @@ import { BookOpen, Sparkles, MapPin, ScrollText, Wand2 } from "lucide-react";
 export default function Home() {
   return (
     <main className="min-h-screen relative overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute -top-32 right-0 h-72 w-72 rounded-full bg-primary/20 blur-3xl" />
         <div className="absolute bottom-0 left-0 h-64 w-64 rounded-full bg-accent/40 blur-3xl" />
       </div>
@@ -62,7 +62,7 @@ export default function Home() {
             },
             {
               title: "Always organized",
-              icon: BookOpen,
+              icon: ScrollText,
               copy: "Keep multiple campaigns separated and searchable.",
             },
           ].map((feature) => (
@@ -71,7 +71,7 @@ export default function Home() {
               className="rounded-2xl border bg-card/70 p-5 text-left shadow-sm backdrop-blur transition hover:-translate-y-1 hover:shadow-md"
             >
               <div className="flex items-center gap-2 text-sm font-semibold">
-                <feature.icon className="h-4 w-4 text-primary" />
+                <feature.icon aria-hidden="true" className="h-4 w-4 text-primary" />
                 {feature.title}
               </div>
               <p className="mt-2 text-sm text-muted-foreground">{feature.copy}</p>

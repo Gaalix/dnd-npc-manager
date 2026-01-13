@@ -66,7 +66,7 @@ export function NPCList({ npcs, campaignId }: NPCListProps) {
           </div>
           <h3 className="text-lg font-medium">No NPCs yet</h3>
           <p className="text-sm text-muted-foreground max-w-sm">
-            Start tracking the party&apos;s allies, rivals, and key quest givers for this campaign.
+            Start tracking the party's allies, rivals, and key quest givers for this campaign.
           </p>
           <div className="mt-4">
             <NPCForm campaignId={campaignId} />
@@ -81,7 +81,7 @@ export function NPCList({ npcs, campaignId }: NPCListProps) {
       {/* Filter bar */}
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Search aria-hidden="true" className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
             value={searchQuery}
             onChange={(event) => setSearchQuery(event.target.value)}
