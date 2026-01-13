@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
+import { MapPin, Sparkles, Swords } from "lucide-react";
 import type { NPC } from "@/lib/supabase/types";
 
 interface NPCCardProps {
@@ -40,29 +41,52 @@ export function NPCCard({ npc, campaignId }: NPCCardProps) {
   };
 
   const subtitle = [npc.race, npc.class, npc.alignment].filter(Boolean).join(" | ");
+  const chips = [
+    npc.location && { label: npc.location, icon: MapPin },
+    npc.race && { label: npc.race, icon: Sparkles },
+    npc.class && { label: npc.class, icon: Swords },
+  ].filter(Boolean) as { label: string; icon: typeof MapPin }[];
 
   return (
-    <Card className="group relative overflow-hidden">
-      <Link href={`/dashboard/campaigns/${campaignId}/npcs/${npc.id}`}>
-        {npc.photo_url && (
-          <div className="h-32 w-full overflow-hidden">
+    <Card className="group relative overflow-hidden border-muted-foreground/20 bg-card/70 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+      <Link href={`/dashboard/campaigns/${campaignId}/npcs/${npc.id}`} className="block h-full">
+        <div className="relative h-36 w-full overflow-hidden">
+          {npc.photo_url ? (
             <img
               src={npc.photo_url}
               alt={npc.name}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
-          </div>
-        )}
-        <CardHeader className={npc.photo_url ? "pt-3" : ""}>
-          <CardTitle className="truncate">{npc.name}</CardTitle>
+          ) : (
+            <div className="h-full w-full bg-gradient-to-br from-muted/40 via-muted/20 to-transparent" />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/0 to-transparent" />
+        </div>
+        <CardHeader className="pb-2">
+          <CardTitle className="truncate text-lg">{npc.name}</CardTitle>
           <CardDescription className="truncate">
-            {subtitle || "Unknown"}
+            {subtitle || "Details not set"}
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          {npc.location && (
-            <p className="text-sm text-muted-foreground truncate">
-              Location: {npc.location}
+        <CardContent className="space-y-3">
+          {chips.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {chips.map((chip) => (
+                <span
+                  key={chip.label}
+                  className="inline-flex items-center gap-1 rounded-full border border-border/60 bg-background/80 px-2 py-0.5 text-xs text-muted-foreground"
+                >
+                  <chip.icon className="h-3 w-3 text-primary" />
+                  {chip.label}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-muted-foreground">Add details to help with quick recall.</p>
+          )}
+          {npc.description && (
+            <p className="text-xs text-muted-foreground line-clamp-2">
+              {npc.description}
             </p>
           )}
         </CardContent>

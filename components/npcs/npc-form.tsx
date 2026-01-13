@@ -216,7 +216,7 @@ export function NPCForm({ campaignId, npc, trigger, onSuccess }: NPCFormProps) {
       <DialogTrigger asChild>
         {trigger || <Button>New NPC</Button>}
       </DialogTrigger>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto border-border/60 bg-background/95 backdrop-blur">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>{isEditing ? "Edit NPC" : "Create NPC"}</DialogTitle>
