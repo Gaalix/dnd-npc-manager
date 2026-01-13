@@ -25,7 +25,7 @@ export function StatBlock({ npc }: StatBlockProps) {
     npc.class && { label: npc.class, icon: Swords },
     npc.alignment && { label: npc.alignment, icon: Shield },
     npc.location && { label: npc.location, icon: MapPin },
-  ].filter(Boolean) as { label: string; icon: typeof MapPin }[];
+  ].filter((chip): chip is { label: string; icon: typeof MapPin } => Boolean(chip));
 
   return (
     <div className="rounded-2xl border border-border/60 bg-card/80 p-5 shadow-sm backdrop-blur">

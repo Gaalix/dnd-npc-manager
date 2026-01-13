@@ -29,7 +29,7 @@ export default async function DashboardPage() {
 
   const lastUpdatedCampaign = campaigns?.[0];
   const formatDate = (value?: string) => {
-    if (!value) return "No updates yet";
+    if (!value) return "No campaigns";
     return new Intl.DateTimeFormat("en-US", {
       month: "short",
       day: "numeric",

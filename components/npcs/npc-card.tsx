@@ -45,7 +45,7 @@ export function NPCCard({ npc, campaignId }: NPCCardProps) {
     npc.location && { label: npc.location, icon: MapPin },
     npc.race && { label: npc.race, icon: Sparkles },
     npc.class && { label: npc.class, icon: Swords },
-  ].filter(Boolean) as { label: string; icon: typeof MapPin }[];
+  ].filter((chip): chip is { label: string; icon: typeof MapPin } => Boolean(chip));
 
   return (
     <Card className="group relative overflow-hidden border-muted-foreground/20 bg-card/70 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
