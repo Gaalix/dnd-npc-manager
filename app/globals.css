@@ -212,3 +212,28 @@
     scroll-behavior: auto !important;
   }
 }
+
+@layer components {
+  .card-interactive {
+    @apply relative overflow-hidden rounded-2xl border bg-card/70 shadow-sm ring-1 ring-transparent backdrop-blur transition duration-300;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+    @apply focus-within:ring-2 focus-within:ring-primary/40 focus-within:ring-offset-2 focus-within:ring-offset-background;
+  }
+
+  .card-interactive::before {
+    content: "";
+    @apply pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.35),_transparent_65%)] opacity-0 transition duration-300;
+  }
+
+  .card-interactive:hover,
+  .card-interactive:focus-visible,
+  .card-interactive:focus-within {
+    @apply -translate-y-1 shadow-lg ring-primary/20;
+  }
+
+  .card-interactive:hover::before,
+  .card-interactive:focus-visible::before,
+  .card-interactive:focus-within::before {
+    @apply opacity-100;
+  }
+}
