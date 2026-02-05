@@ -207,7 +207,9 @@ function CampaignTreeItem({
       <div
         className={cn(
           "grid transition-[grid-template-rows,opacity] duration-300 ease-out",
-          isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+          isOpen
+            ? "grid-rows-[1fr] opacity-100"
+            : "grid-rows-[0fr] opacity-0 pointer-events-none"
         )}
         aria-hidden={!isOpen}
       >
@@ -219,6 +221,7 @@ function CampaignTreeItem({
                <Link
                  key={npc.id}
                  href={`/dashboard/campaigns/${campaign.id}/npcs/${npc.id}`} // Assuming this route exists or will exist
+                 tabIndex={isOpen ? undefined : -1}
                  className={cn(
                    "group flex items-center gap-2 rounded-md px-2 py-1.5 text-xs transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
                    motionBase,
@@ -232,6 +235,7 @@ function CampaignTreeItem({
            )}
            <Link
               href={`/dashboard/campaigns/${campaign.id}`}
+              tabIndex={isOpen ? undefined : -1}
               className={cn(
                 "group flex items-center gap-2 rounded-md px-2 py-1.5 text-xs text-muted-foreground hover:text-primary transition-colors",
                 motionBase
