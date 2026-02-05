@@ -41,6 +41,12 @@ interface SidebarProps {
   campaigns: CampaignWithNPCs[];
 }
 
+const motionBase = "transition-all duration-200 ease-out";
+const motionHoverShift = "group-hover:translate-x-0.5";
+const motionIconWiggle = "group-hover:rotate-3";
+const motionPulseGlow =
+  "hover:shadow-[0_0_12px_hsl(var(--primary)/0.35)] hover:animate-[pulse_1.2s_ease-out]";
+
 function SidebarItem({
   icon: Icon,
   label,
@@ -65,11 +71,13 @@ function SidebarItem({
               href={href}
               onClick={onClick}
               className={cn(
-                "flex h-10 w-10 items-center justify-center rounded-md transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                "group flex h-10 w-10 items-center justify-center rounded-md transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                motionBase,
+                motionPulseGlow,
                 active ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-muted-foreground"
               )}
             >
-              <Icon className="h-5 w-5" />
+              <Icon className={cn("h-5 w-5", motionBase, motionIconWiggle)} />
               <span className="sr-only">{label}</span>
             </Link>
           </TooltipTrigger>
@@ -86,12 +94,27 @@ function SidebarItem({
       href={href}
       onClick={onClick}
       className={cn(
-        "group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-all hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+        "group relative flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-all hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+        motionBase,
         active ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-muted-foreground"
       )}
     >
-      <Icon className={cn("h-4 w-4", active ? "text-primary" : "text-muted-foreground group-hover:text-primary")} />
-      <span className="truncate flex-1">{label}</span>
+      <span
+        className={cn(
+          "pointer-events-none absolute left-0 top-1/2 h-4 w-0.5 -translate-y-1/2 rounded-full bg-primary transition-all duration-300 ease-out",
+          active ? "opacity-100 scale-y-100" : "opacity-0 scale-y-75"
+        )}
+        aria-hidden="true"
+      />
+      <Icon
+        className={cn(
+          "h-4 w-4 transition-all",
+          active ? "text-primary" : "text-muted-foreground group-hover:text-primary",
+          motionBase,
+          motionIconWiggle
+        )}
+      />
+      <span className={cn("truncate flex-1", motionBase, motionHoverShift)}>{label}</span>
     </Link>
   );
 }
@@ -124,11 +147,13 @@ function CampaignTreeItem({
             <Link
               href={`/dashboard/campaigns/${campaign.id}`}
               className={cn(
-                "flex h-10 w-10 items-center justify-center rounded-md transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                "group flex h-10 w-10 items-center justify-center rounded-md transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                motionBase,
+                motionPulseGlow,
                 active ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-muted-foreground"
               )}
             >
-              <BookOpen className="h-5 w-5" />
+              <BookOpen className={cn("h-5 w-5", motionBase, motionIconWiggle)} />
             </Link>
           </TooltipTrigger>
           <TooltipContent side="right" className="font-medium">
@@ -143,32 +168,52 @@ function CampaignTreeItem({
     <div className="space-y-1">
       <div
         className={cn(
-          "group flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-sidebar-accent/50 text-foreground",
+          "group relative flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-sidebar-accent/50 text-foreground",
+          motionBase
         )}
       >
+        <span
+          className={cn(
+            "pointer-events-none absolute left-0 top-1/2 h-4 w-0.5 -translate-y-1/2 rounded-full bg-primary transition-all duration-300 ease-out",
+            active ? "opacity-100 scale-y-100" : "opacity-0 scale-y-75"
+          )}
+          aria-hidden="true"
+        />
         <button
           onClick={(e) => {
             e.preventDefault();
             setIsOpen(!isOpen);
           }}
-          className="p-0.5 hover:bg-sidebar-accent rounded-sm text-muted-foreground"
+          className={cn(
+            "p-0.5 hover:bg-sidebar-accent rounded-sm text-muted-foreground",
+            motionBase,
+            "group-hover:text-primary"
+          )}
         >
           {isOpen ? (
-            <ChevronDown className="h-4 w-4" />
+            <ChevronDown className={cn("h-4 w-4", motionBase, motionIconWiggle)} />
           ) : (
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className={cn("h-4 w-4", motionBase, motionIconWiggle)} />
           )}
         </button>
         <Link 
           href={`/dashboard/campaigns/${campaign.id}`}
-          className="flex-1 truncate"
+          className={cn("flex-1 truncate", motionBase, motionHoverShift)}
         >
           {campaign.name}
         </Link>
       </div>
 
-      {isOpen && (
-        <div className="ml-4 space-y-0.5 border-l border-border/50 pl-2">
+      <div
+        className={cn(
+          "grid transition-[grid-template-rows,opacity] duration-300 ease-out",
+          isOpen
+            ? "grid-rows-[1fr] opacity-100"
+            : "grid-rows-[0fr] opacity-0 pointer-events-none"
+        )}
+        aria-hidden={!isOpen}
+      >
+        <div className="ml-4 space-y-0.5 overflow-hidden border-l border-border/50 pl-2">
            {campaign.npcs.length === 0 ? (
              <div className="px-2 py-1 text-xs text-muted-foreground italic">No NPCs</div>
            ) : (
@@ -176,25 +221,31 @@ function CampaignTreeItem({
                <Link
                  key={npc.id}
                  href={`/dashboard/campaigns/${campaign.id}/npcs/${npc.id}`} // Assuming this route exists or will exist
+                 tabIndex={isOpen ? undefined : -1}
                  className={cn(
-                   "flex items-center gap-2 rounded-md px-2 py-1.5 text-xs transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                   "group flex items-center gap-2 rounded-md px-2 py-1.5 text-xs transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                   motionBase,
                    pathname.includes(npc.id) ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium" : "text-muted-foreground"
                  )}
                >
-                 <Users className="h-3 w-3" />
-                 <span className="truncate">{npc.name}</span>
+                 <Users className={cn("h-3 w-3", motionBase, motionIconWiggle)} />
+                 <span className={cn("truncate", motionBase, motionHoverShift)}>{npc.name}</span>
                </Link>
              ))
            )}
            <Link
               href={`/dashboard/campaigns/${campaign.id}`}
-              className="flex items-center gap-2 rounded-md px-2 py-1.5 text-xs text-muted-foreground hover:text-primary transition-colors"
+              tabIndex={isOpen ? undefined : -1}
+              className={cn(
+                "group flex items-center gap-2 rounded-md px-2 py-1.5 text-xs text-muted-foreground hover:text-primary transition-colors",
+                motionBase
+              )}
            >
-              <Plus className="h-3 w-3" />
-              <span>Add NPC</span>
+              <Plus className={cn("h-3 w-3", motionBase, motionIconWiggle)} />
+              <span className={cn(motionBase, motionHoverShift)}>Add NPC</span>
            </Link>
         </div>
-      )}
+      </div>
     </div>
   );
 }
