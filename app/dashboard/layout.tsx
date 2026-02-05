@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Sidebar } from "@/components/dashboard/sidebar";
 import { SidebarProvider } from "@/components/dashboard/sidebar-context";
 import { DashboardShell } from "@/components/dashboard/dashboard-shell";
+import { RouteTransition } from "@/components/dashboard/route-transition";
 
 export default async function DashboardLayout({
   children,
@@ -28,7 +29,7 @@ export default async function DashboardLayout({
       <DashboardShell 
         sidebar={<Sidebar campaigns={campaigns || []} />}
       >
-        {children}
+        <RouteTransition>{children}</RouteTransition>
       </DashboardShell>
     </SidebarProvider>
   );
