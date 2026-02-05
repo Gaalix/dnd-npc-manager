@@ -48,6 +48,14 @@
 
 :root {
   --radius: 0.75rem;
+
+  --motion-fast: 150ms;
+  --motion-medium: 300ms;
+  --motion-slow: 500ms;
+  --motion-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --tw-duration: var(--motion-medium);
+  --tw-ease: var(--motion-ease);
+  --tw-animation-duration: var(--motion-medium);
   
   /* Parchment Light Theme */
   --background: oklch(0.96 0.03 97);  /* Warm Cream */
@@ -145,11 +153,62 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground transition-colors duration-300 antialiased;
+    @apply bg-background text-foreground transition-colors antialiased;
+    transition-duration: var(--motion-medium);
+    transition-timing-function: var(--motion-ease);
     background-image:
       radial-gradient(1200px circle at top left, oklch(0.98 0.05 95 / 0.35), transparent 55%),
       radial-gradient(900px circle at top right, oklch(0.95 0.07 80 / 0.25), transparent 45%),
       radial-gradient(800px circle at 30% 20%, oklch(0.92 0.05 110 / 0.2), transparent 40%);
     background-attachment: fixed;
+  }
+
+  :where(a, button, [role="button"], [type="button"], [type="submit"], [type="reset"], input, select, textarea) {
+    transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+    transition-duration: var(--motion-fast);
+    transition-timing-function: var(--motion-ease);
+  }
+
+  :where(.card, [data-card]) {
+    transition-property: background-color, border-color, box-shadow, transform;
+    transition-duration: var(--motion-medium);
+    transition-timing-function: var(--motion-ease);
+  }
+}
+
+@layer utilities {
+  .motion-fast {
+    transition-duration: var(--motion-fast);
+    transition-timing-function: var(--motion-ease);
+    animation-duration: var(--motion-fast);
+  }
+
+  .motion-medium {
+    transition-duration: var(--motion-medium);
+    transition-timing-function: var(--motion-ease);
+    animation-duration: var(--motion-medium);
+  }
+
+  .motion-slow {
+    transition-duration: var(--motion-slow);
+    transition-timing-function: var(--motion-ease);
+    animation-duration: var(--motion-slow);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 0ms;
+    --motion-medium: 0ms;
+    --motion-slow: 0ms;
+    --tw-duration: 0ms;
+    --tw-animation-duration: 0ms;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
