@@ -68,7 +68,8 @@ export default function Home() {
           ].map((feature) => (
             <div
               key={feature.title}
-              className="rounded-2xl border bg-card/70 p-5 text-left shadow-sm backdrop-blur transition hover:-translate-y-1 hover:shadow-md"
+              className="card-interactive p-5 text-left"
+              tabIndex={0}
             >
               <div className="flex items-center gap-2 text-sm font-semibold">
                 <feature.icon aria-hidden="true" className="h-4 w-4 text-primary" />

@@ -48,14 +48,17 @@ export function NPCCard({ npc, campaignId }: NPCCardProps) {
   ].filter((chip): chip is { label: string; icon: typeof MapPin } => Boolean(chip));
 
   return (
-    <Card className="group relative overflow-hidden border-muted-foreground/20 bg-card/70 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-      <Link href={`/dashboard/campaigns/${campaignId}/npcs/${npc.id}`} className="block h-full">
+    <Card className="card-interactive group border-muted-foreground/20">
+      <Link
+        href={`/dashboard/campaigns/${campaignId}/npcs/${npc.id}`}
+        className="block h-full focus-visible:outline-none"
+      >
         <div className="relative h-36 w-full overflow-hidden">
           {npc.photo_url ? (
             <img
               src={npc.photo_url}
               alt={npc.name}
-              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              className="h-full w-full object-cover transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-105"
             />
           ) : (
             <div className="h-full w-full bg-gradient-to-br from-muted/40 via-muted/20 to-transparent" />
